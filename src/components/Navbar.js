@@ -11,15 +11,14 @@ return (
     <span className="navbar-toggler-icon"></span>
   </button>
   <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
+    <div className="navbar-nav">
       <a className="nav-item nav-link" href="#">Currency Conventer<span class="sr-only">(current)</span></a>
       <a className="nav-item nav-link" href="#">Exchange Rates</a>
       <a className="nav-item nav-link" href="#">Historical Exchange</a>
     </div>
   </div>
 </nav>
-        
-        
+             
         </div>
 )
 
