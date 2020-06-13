@@ -26,10 +26,11 @@ class CurrencyConventer extends React.Component {
                 currencies: Object.keys(data['rates']).sort() 
                 })
             })
-    }
+        }
 
 //get needed rates 
     componentDidUpdate() {
+    
         fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.from}`)
         .then(response => response.json())
         .then(data => {
@@ -38,8 +39,7 @@ class CurrencyConventer extends React.Component {
               exchangeRate: data.rates[this.state.to]
             })
         })
-    }
-
+}
 
     handleChange(event) {
         const {name, value} = event.target
@@ -57,7 +57,7 @@ class CurrencyConventer extends React.Component {
       );
 
             return (
-                <div className="currency-box">
+                <div className="currency-box" id="currencyConventerPath">
                     <h3 className="heading">Currency Conventer</h3>
 
                     <p className="currencyBox"> 1 {from} is { (1 * exchangeRate).toFixed([2]) } {to}</p>

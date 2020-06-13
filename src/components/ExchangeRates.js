@@ -63,7 +63,7 @@ const currencyList = Object.entries(rates).map(([key,value])=>{
 
 
 return (
-    <div className="exchange-box">
+    <div className="exchange-box" id="exchangeRatesPath">
         <h3 className="heading">Exchange Rates</h3>
 
         <span className="chooseBaseCurrency">Choose base currency</span>
