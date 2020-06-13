@@ -1,3 +1,18 @@
+body {
+  padding-top: 60px;
+}
+
+html {
+  scroll-padding-top: 70px; 
+}
+
+
+.exchange-box {
+  padding: 20px;
+  border: 2px solid black;
+  margin: 50px 150px;
+}
+
 .currency-box {
   padding: 20px;
   border: 2px solid black;
@@ -16,12 +31,6 @@
 .currencyBox {
   padding: 20px;
   text-align: center;
-}
-
-.exchange-box {
-  padding: 20px;
-  border: 2px solid black;
-  margin: 50px 150px;
 }
 
 .currencyList {
