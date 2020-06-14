@@ -1,5 +1,7 @@
 import React from "react"
 import ScrollableAnchor from 'react-scrollable-anchor'
+import Select from 'react-select'
+
 
 class CurrencyConventer extends React.Component {
     constructor() {
@@ -57,6 +59,9 @@ class CurrencyConventer extends React.Component {
         <option key={currency} value={currency}> {currency} </option>      
       );
 
+      
+
+
             return (
                 <div className="currency-box border">
                     <ScrollableAnchor id={'currencyConventer'}>
@@ -67,15 +72,19 @@ class CurrencyConventer extends React.Component {
                     <form>
 <div className="currencyBox">
 
-<span className="title">Amount</span>
+<div class="form-group">
+<label for="amount">Amount:</label>
               <input 
+                        className="form-control"
                         name="amount" 
+                        id="amount"
                         type="number"
                         value={amount} 
                         onChange={this.handleChange} 
                         placeholder="AMOUNT" 
                     />
-</div>
+                    </div>
+                    </div>
 
 
 <div className="currencyBox">
@@ -85,7 +94,7 @@ class CurrencyConventer extends React.Component {
             {currencyChoice}
             <option>{from}</option>
           </select>
-
+          
 <span className="title">To:</span>
        <select value={to} onChange={this.handleChange} name="to">
             {currencyChoice}
@@ -93,6 +102,7 @@ class CurrencyConventer extends React.Component {
           </select>
 
 </div>
+
 
             </form>
 
@@ -106,6 +116,7 @@ class CurrencyConventer extends React.Component {
             )
     }
 }
+  
 
     export default CurrencyConventer    
 

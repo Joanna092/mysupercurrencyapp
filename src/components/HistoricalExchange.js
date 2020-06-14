@@ -7,7 +7,7 @@ function HistoricalExchange () {
 return (
     <div className="exchange-box border">
     <ScrollableAnchor id={'historicalExchange'}>
-    <h3 className="heading">HistoricalExchange</h3>
+    <h3 className="heading">Historical Exchange</h3>
     </ScrollableAnchor>
     <img src={image} alt="currency graph"></img>
     </div>
