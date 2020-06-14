@@ -7,7 +7,7 @@ import HistoricalExchange from './components/HistoricalExchange'
 import Footer from './components/Footer'
 import { configureAnchors } from 'react-scrollable-anchor'
 
-configureAnchors({offset: -100, scrollDuration: 200})
+configureAnchors({offset: -120, scrollDuration: 200})
 
 function App() {
 
