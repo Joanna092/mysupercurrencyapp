@@ -1,4 +1,6 @@
 import React from "react"
+import ScrollableAnchor from 'react-scrollable-anchor'
+
 
 class ExchangeRates extends React.Component {
 
@@ -63,9 +65,11 @@ const currencyList = Object.entries(rates).map(([key,value])=>{
 
 
 return (
-    <div className="exchange-box" id="exchangeRatesPath">
+    <div className="exchange-box border">
+        <ScrollableAnchor id={'exchangeRates'}>
         <h3 className="heading">Exchange Rates</h3>
-
+        </ScrollableAnchor>
+        
         <span className="chooseBaseCurrency">Choose base currency</span>
         <select  value={baseCurrency} onChange={this.handleChange} name="baseCurrency">
             {currencyChoice}

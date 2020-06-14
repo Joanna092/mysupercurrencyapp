@@ -1,4 +1,5 @@
 import React from "react"
+import ScrollableAnchor from 'react-scrollable-anchor'
 
 class CurrencyConventer extends React.Component {
     constructor() {
@@ -57,9 +58,10 @@ class CurrencyConventer extends React.Component {
       );
 
             return (
-                <div className="currency-box" id="currencyConventerPath">
+                <div className="currency-box border">
+                    <ScrollableAnchor id={'currencyConventer'}>
                     <h3 className="heading">Currency Conventer</h3>
-
+                    </ScrollableAnchor>
                     <p className="currencyBox"> 1 {from} is { (1 * exchangeRate).toFixed([2]) } {to}</p>
 
                     <form>
