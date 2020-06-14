@@ -5,11 +5,13 @@ import CurrencyConventer from './components/CurrencyConventer'
 import ExchangeRates from './components/ExchangeRates'
 import HistoricalExchange from './components/HistoricalExchange'
 import Footer from './components/Footer'
-import {BrowserRouter as Router} from "react-router-dom"
+import { configureAnchors } from 'react-scrollable-anchor'
+
+configureAnchors({offset: -100, scrollDuration: 200})
 
 function App() {
+
   return (
-    <Router>
     <div>
       < Navbar />
      <CurrencyConventer /> 
@@ -17,7 +19,6 @@ function App() {
      < HistoricalExchange />
      < Footer /> 
    </div>
-   </Router>
   )
 
 }
