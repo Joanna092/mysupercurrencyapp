@@ -9,7 +9,7 @@ return (
     <ScrollableAnchor id={'historicalExchange'}>
     <h3 className="heading">Historical Exchange</h3>
     </ScrollableAnchor>
-    <img src={image} alt="currency graph"></img>
+    <img className="img-fluid" src={image} alt="currency graph"></img>
     </div>
 )
 }

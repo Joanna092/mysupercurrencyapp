@@ -15,7 +15,6 @@ class ExchangeRates extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
-
     handleChange(event) {
         const {name, value} = event.target
         this.setState({
@@ -63,25 +62,24 @@ const currencyList = Object.entries(rates).map(([key,value])=>{
     );
   })
 
-
-return (
+  return (
     <div className="exchange-box border">
-        <ScrollableAnchor id={'exchangeRates'}>
-        <h3 className="heading">Exchange Rates</h3>
-        </ScrollableAnchor>
-        
-        <span className="chooseBaseCurrency">Choose base currency</span>
-        <select  value={baseCurrency} onChange={this.handleChange} name="baseCurrency">
-            {currencyChoice}
-            <option>{baseCurrency}</option>
+       <ScrollableAnchor id={'exchangeRates'}>
+          <h3 className="heading">Exchange Rates</h3>
+       </ScrollableAnchor>
+       <div className="choose-currency-box">
+          <span className="chooseBaseCurrency">Choose base currency:</span>
+          <select  value={baseCurrency} onChange={this.handleChange} name="baseCurrency">
+             {currencyChoice}
+             <option>{baseCurrency}</option>
           </select>
-
-<div className="currencyList">
+       </div>
+       <div className="currencyList">
           <p>{ currencyList }</p>
-</div>
-        </div>
-)
-}
-}
+       </div>
+    </div>
+    )
+   }
+  }
 
-export default ExchangeRates
+  export default ExchangeRates
