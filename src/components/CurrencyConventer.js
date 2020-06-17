@@ -1,7 +1,5 @@
 import React from "react"
 import ScrollableAnchor from 'react-scrollable-anchor'
-import Select from 'react-select'
-
 
 class CurrencyConventer extends React.Component {
     constructor() {
@@ -19,8 +17,6 @@ class CurrencyConventer extends React.Component {
 
 
 //Get list of currencies
-
-
     componentDidMount() {
         fetch("https://api.exchangeratesapi.io/latest")
             .then(response => response.json())
@@ -52,73 +48,68 @@ class CurrencyConventer extends React.Component {
     }
 
     render() {
-    const {currencies, from, to, amount, exchangeRate} = this.state;
+        const {currencies, from, to, amount, exchangeRate} = this.state;
 
-//display currencies 
-    const currencyChoice = currencies.map(currency =>
-        <option key={currency} value={currency}> {currency} </option>      
-      );
+        //display currencies 
+        const currencyChoice = currencies.map(currency =>
+        <option key={currency} value={currency}> {currency} </option>
+        );
 
-      
-
-
-            return (
-                <div className="currency-box border">
-                    <ScrollableAnchor id={'currencyConventer'}>
-                    <h3 className="heading">Currency Conventer</h3>
-                    </ScrollableAnchor>
-                    <p className="currencyBox"> 1 {from} is { (1 * exchangeRate).toFixed([2]) } {to}</p>
-
-                    <form>
-<div className="currencyBox">
-
-<div class="form-group">
-<label for="amount">Amount:</label>
-              <input 
-                        className="form-control"
-                        name="amount" 
-                        id="amount"
-                        type="number"
-                        value={amount} 
-                        onChange={this.handleChange} 
-                        placeholder="AMOUNT" 
-                    />
+        return (
+        <div className="currency-box border">
+           <ScrollableAnchor id={'currencyConventer'}>
+              <h3 className="heading">Currency Conventer</h3>
+           </ScrollableAnchor>
+           <div className="currencyRate">
+              <p> 1 {from} = { (1 * exchangeRate).toFixed([3]) } {to}</p>
+           </div>
+           <form>
+              <div className="currency-input-box">
+                 <div className="input-group">
+                    <div className="input-group-prepend">
+                       <span className="input-group-text" id="">Amount</span>
                     </div>
+                    <input 
+                       type="number" 
+                       className="form-control"
+                       name="amount" 
+                       id="amount"
+                       value={amount} 
+                       onChange={this.handleChange} 
+                       placeholder="AMOUNT" 
+                       />
+                 </div>
+              </div>
+              <div>
+                 <div className="container">
+                    <div className="row">
+                       <div className="col from">
+                          <span className="title1">From:</span>
+                          <select  value={from} onChange={this.handleChange} name="from">
+                             {currencyChoice}
+                             <option>{from}</option>
+                          </select>
+                       </div>
+                       <div className="col">
+                          <span className="title2">To:</span>
+                          <select value={to} onChange={this.handleChange} name="to">
+                             {currencyChoice}
+                             <option>{to}</option>
+                          </select>
+                       </div>
                     </div>
+                 </div>
+              </div>
+           </form>
+           <div className="result">
+              <p>{amount} {from} is { (amount * exchangeRate).toFixed([3])} {to}</p>
+           </div>
+        </div>
+        )
+       }
+      }
 
-
-<div className="currencyBox">
-
-<span className="title">From:</span>
-         <select  value={from} onChange={this.handleChange} name="from">
-            {currencyChoice}
-            <option>{from}</option>
-          </select>
-          
-<span className="title">To:</span>
-       <select value={to} onChange={this.handleChange} name="to">
-            {currencyChoice}
-            <option>{to}</option>
-          </select>
-
-</div>
-
-
-            </form>
-
-<div className="currencyBox">
-
-                <p>{amount} {from} is { (amount * exchangeRate).toFixed([2])} {to}</p> 
-
-</div>
-
-                </div>
-            )
-    }
-}
-  
-
-    export default CurrencyConventer    
+        export default CurrencyConventer
 
 
 

@@ -13,14 +13,13 @@ function App() {
 
   return (
     <div>
-      < Navbar />
+     < Navbar />
      <CurrencyConventer /> 
      < ExchangeRates />
      < HistoricalExchange />
      < Footer /> 
    </div>
   )
-
 }
 
 export default App;
