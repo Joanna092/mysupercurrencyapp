@@ -20,7 +20,7 @@ function Navbar () {
                        <Dropdown.Menu>
                           <Dropdown.Item href="#currencyConventer">Currency Converter</Dropdown.Item>
                           <Dropdown.Item href="#exchangeRates">Exchange Rates</Dropdown.Item>
-                          <Dropdown.Item href="#historicalExchange">Historical Exchange"</Dropdown.Item>
+                          <Dropdown.Item href="#historicalExchange">Historical Exchange</Dropdown.Item>
                        </Dropdown.Menu>
                     </Dropdown>
                  </div>
