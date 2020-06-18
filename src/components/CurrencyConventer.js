@@ -5,12 +5,13 @@ class CurrencyConventer extends React.Component {
     constructor() {
         super()
         this.state = {
-            amount: 1,
+            amount: ' ',
             from: "GBP",
             to: "USD",
             rates: [],
             currencies: [],
-            exchangeRate: ' '
+            exchangeRate: ' ',
+            showResults: false
         }
         this.handleChange = this.handleChange.bind(this)
     }
@@ -27,20 +28,18 @@ class CurrencyConventer extends React.Component {
             })
         }
 
-//get needed rates 
-    componentDidUpdate() {
-    
-        fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.from}`)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({
-              rates: data['rates'], 
-              exchangeRate: data.rates[this.state.to]
-            })
-        })
-}
-
     handleChange(event) {
+
+      fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.from}`)
+      .then(response => response.json())
+      .then(data => {
+          this.setState({
+            rates: data['rates'], 
+            exchangeRate: data.rates[this.state.to],
+            showResults: true
+          })
+      })
+
         const {name, value} = event.target
         this.setState({
             [name]: value,
@@ -61,7 +60,9 @@ class CurrencyConventer extends React.Component {
               <h3 className="heading">Currency Conventer</h3>
            </ScrollableAnchor>
            <div className="currencyRate">
+           { this.state.showResults && amount !== ' ' ?
               <p> 1 {from} = { (1 * exchangeRate).toFixed([3]) } {to}</p>
+              : null }
            </div>
            <form>
               <div className="currency-input-box">
@@ -76,7 +77,7 @@ class CurrencyConventer extends React.Component {
                        id="amount"
                        value={amount} 
                        onChange={this.handleChange} 
-                       placeholder="AMOUNT" 
+                       placeholder="amount to exchange" 
                        />
                  </div>
               </div>
@@ -101,9 +102,11 @@ class CurrencyConventer extends React.Component {
                  </div>
               </div>
            </form>
+           { this.state.showResults && amount !== ' ' ?  
            <div className="result">
-              <p>{amount} {from} is { (amount * exchangeRate).toFixed([3])} {to}</p>
+           <p>{amount} {from} is { (amount * exchangeRate).toFixed([3])} {to}</p>
            </div>
+           : null }
         </div>
         )
        }
