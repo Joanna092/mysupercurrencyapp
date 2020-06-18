@@ -15,34 +15,37 @@ class ExchangeRates extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
-    handleChange(event) {
-        const {name, value} = event.target
+
+
+handleChange(event) {
+
+const {name, value} = event.target
         this.setState({
             [name]: value,
         }) 
-    }
 
-    //Get list of currencies
-    componentDidMount() {
-        fetch("https://api.exchangeratesapi.io/latest")
-            .then(response => response.json())
-            .then(data => {
-              this.setState({
-                currencies: Object.keys(data['rates']).sort() 
-                })
-            })
-    }
-
-    componentDidUpdate() {
-        fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.baseCurrency}`)
+    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.baseCurrency}`) 
         .then(response => response.json())
         .then(data => {
             console.log(data['rates'])
-           // console.log(data.rates[this.state.baseCurrency])
             this.setState({
+              currencies: Object.keys(data['rates']).sort(),
               rates: data['rates']
             })
         })
+
+    }
+
+    //Get list of currencies for base currency
+    componentDidMount() {
+        fetch("https://api.exchangeratesapi.io/latest?base=GBP") 
+            .then(response => response.json())
+            .then(data => {
+              this.setState({
+                currencies: Object.keys(data['rates']).sort(),
+                rates: data['rates']
+                })
+            })
     }
 
 
@@ -56,7 +59,7 @@ const currencyChoice = currencies.map(currency =>
   );
 
 //display rates and currencies
-const currencyList = Object.entries(rates).map(([key,value])=>{
+const currencyList = Object.entries(rates).map(([key,value]) =>{
     return (
         <div>{key} : {value.toFixed([4])}</div>
     );
@@ -73,6 +76,7 @@ const currencyList = Object.entries(rates).map(([key,value])=>{
              {currencyChoice}
              <option>{baseCurrency}</option>
           </select>
+
        </div>
        <div className="currencyList">
           <p>{ currencyList }</p>
