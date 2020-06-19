@@ -24,7 +24,7 @@ const {name, value} = event.target
             [name]: value,
         }) 
 
-    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.baseCurrency}`) 
+    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${event.target.value}`) 
         .then(response => response.json())
         .then(data => {
             console.log(data['rates'])
