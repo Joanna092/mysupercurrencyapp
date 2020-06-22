@@ -65,6 +65,7 @@ const currencyList = Object.entries(rates).map(([key,value]) =>{
     );
   })
 
+
   return (
     <div className="exchange-box border">
        <ScrollableAnchor id={'exchangeRates'}>

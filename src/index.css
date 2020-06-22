@@ -331,10 +331,11 @@ select {
   }
 }
 
-
 /* Historical Exchange CSS */
 
-
+.historical-exchange-choice {
+  margin: 20px 0px;
+}
 
 /*Footer CSS */
 

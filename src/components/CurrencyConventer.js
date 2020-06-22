@@ -81,7 +81,7 @@ class CurrencyConventer extends React.Component {
                        />
                  </div>
               </div>
-              <div>
+              
                  <div className="container">
                     <div className="row">
                        <div className="col from">
@@ -100,7 +100,7 @@ class CurrencyConventer extends React.Component {
                        </div>
                     </div>
                  </div>
-              </div>
+              
            </form>
            { this.state.showResults && amount !== ' ' ?  
            <div className="result">
