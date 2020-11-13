@@ -1,5 +1,6 @@
 App deployed to Heroku:
 https://currency-exchange-app99.herokuapp.com/
+https://kind-sammet-1a1175.netlify.app/
 
 
 
