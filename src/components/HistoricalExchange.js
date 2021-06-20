@@ -18,42 +18,48 @@ class HistoricalExchange extends React.Component {
       const { baseAcronym, quoteAcronym } = this.state;
       this.getRate(baseAcronym, quoteAcronym);
       this.getHistoricalRates(baseAcronym, quoteAcronym);
- 
-      fetch("https://api.exchangeratesapi.io/latest")
+
+      const host = 'api.frankfurter.app';
+        fetch(`https://${host}/latest`)
+  //    fetch("http://api.exchangeratesapi.io/v1/latest?access_key=ec3a82f943f832429a65a3a0f4f553db")
           .then(response => response.json())
           .then(data => {
             this.setState({
-              currencies: Object.keys(data['rates']).sort() 
+              currencies: Object.keys(data['rates']).sort()
               })
           })
       }
-      
+
       changeBaseAcronym = (event) => {
         const baseAcronym = event.target.value;
         this.setState({ baseAcronym });
         this.getRate(baseAcronym, this.state.quoteAcronym);
         this.getHistoricalRates(baseAcronym, this.state.quoteAcronym);
       }
-      
+
       changeQuoteAcronym = (event) => {
         const quoteAcronym = event.target.value;
         this.setState({ quoteAcronym });
         this.getRate(this.state.baseAcronym, quoteAcronym);
         this.getHistoricalRates(this.state.baseAcronym, quoteAcronym);
       }
-    
+
 
     getRate = (base, quote) => {
       this.setState({ loading: true });
-      fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${base}&symbols=${quote}`)
-        .then(response => response.json()) 
+
+      const host = 'api.frankfurter.app';
+        fetch(`https://${host}/latest?from=${base}&symbols=${quote}`)
+
+  //    fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=ec3a82f943f832429a65a3a0f4f553db?base=${base}&symbols=${quote}`)
+        .then(response => response.json())
         .then(data => {
           if (data.error) {
             throw new Error(data.error);
           }
-  
+
           const rate = data.rates[quote];
-  
+
           this.setState({
             rate,
             baseValue: 1,
@@ -63,14 +69,16 @@ class HistoricalExchange extends React.Component {
         })
         .catch(error => console.error(error.message));
     }
-  
+
 
     getHistoricalRates = (base, quote) => {
         const endDate = new Date().toISOString().split('T')[0];
         const startDate = new Date((new Date).getTime() - (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
-        fetch(`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${quote}`)
-      
-          .then(response => response.json()) 
+        const host = 'api.frankfurter.app';
+      //  fetch(`https://alt-exchange-rate.herokuapp.com/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${quote}`)
+      fetch(`https://${host}/${startDate}..${endDate}?from=${base}&symbols=${quote}`)
+
+          .then(response => response.json())
           .then(data => {
             if (data.error) {
               throw new Error(data.error);
@@ -125,7 +133,7 @@ class HistoricalExchange extends React.Component {
     render () {
       const {baseAcronym, quoteAcronym, currencies} = this.state;
 
-      //display currencies 
+      //display currencies
       const currencyChoice = currencies.map(currency =>
         <option key={currency} value={currency}> {currency} </option>
         );
@@ -156,9 +164,9 @@ return (
                     </div>
                  </div>
                  </div>
-  
-    <canvas ref={this.chartRef} /> 
-  
+
+    <canvas ref={this.chartRef} />
+
     </div>
    )
   }

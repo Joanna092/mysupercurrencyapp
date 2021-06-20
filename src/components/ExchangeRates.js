@@ -16,15 +16,16 @@ class ExchangeRates extends React.Component {
     }
 
 
-
 handleChange(event) {
 
 const {name, value} = event.target
         this.setState({
             [name]: value,
-        }) 
+        })
 
-    fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${event.target.value}`) 
+  const host = 'api.frankfurter.app';
+
+    fetch(`https://${host}/latest?from=${event.target.value}`)
         .then(response => response.json())
         .then(data => {
             console.log(data['rates'])
@@ -37,8 +38,12 @@ const {name, value} = event.target
     }
 
     //Get list of currencies for base currency
+
+
     componentDidMount() {
-        fetch("https://api.exchangeratesapi.io/latest?base=GBP") 
+        const host = 'api.frankfurter.app';
+      //  fetch("http://api.exchangeratesapi.io/v1/latest?access_key=ec3a82f943f832429a65a3a0f4f553db?base=GBP")
+      fetch(`https://${host}/latest`)
             .then(response => response.json())
             .then(data => {
               this.setState({
@@ -55,7 +60,7 @@ const {baseCurrency, currencies, rates } = this.state;
 
 //display currencies in a dropdown
 const currencyChoice = currencies.map(currency =>
-    <option key={currency} value={currency}> {currency} </option>      
+    <option key={currency} value={currency}> {currency} </option>
   );
 
 //display rates and currencies

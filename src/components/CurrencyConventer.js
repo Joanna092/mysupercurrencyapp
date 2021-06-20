@@ -19,22 +19,24 @@ class CurrencyConventer extends React.Component {
 
 //Get list of currencies
     componentDidMount() {
-        fetch("https://api.exchangeratesapi.io/latest")
+      const host = 'api.frankfurter.app';
+        fetch(`https://${host}/latest`)
             .then(response => response.json())
             .then(data => {
               this.setState({
-                currencies: Object.keys(data['rates']).sort() 
+                currencies: Object.keys(data['rates']).sort()
                 })
             })
         }
 
-    handleChange(event) {
 
-      fetch(`https://alt-exchange-rate.herokuapp.com/latest?base=${this.state.from}`)
+    handleChange(event) {
+      const host = 'api.frankfurter.app';
+       fetch(`https://${host}/latest?from=${this.state.from}`)
       .then(response => response.json())
       .then(data => {
           this.setState({
-            rates: data['rates'], 
+            rates: data['rates'],
             exchangeRate: data.rates[this.state.to],
             showResults: true
           })
@@ -43,13 +45,15 @@ class CurrencyConventer extends React.Component {
         const {name, value} = event.target
         this.setState({
             [name]: value,
-        }) 
+        })
     }
+
+
 
     render() {
         const {currencies, from, to, amount, exchangeRate} = this.state;
 
-        //display currencies 
+        //display currencies
         const currencyChoice = currencies.map(currency =>
         <option key={currency} value={currency}> {currency} </option>
         );
@@ -70,18 +74,18 @@ class CurrencyConventer extends React.Component {
                     <div className="input-group-prepend">
                        <span className="input-group-text" id="">Amount</span>
                     </div>
-                    <input 
-                       type="number" 
+                    <input
+                       type="number"
                        className="form-control"
-                       name="amount" 
+                       name="amount"
                        id="amount"
-                       value={amount} 
-                       onChange={this.handleChange} 
-                       placeholder="amount to exchange" 
+                       value={amount}
+                       onChange={this.handleChange}
+                       placeholder="amount to exchange"
                        />
                  </div>
               </div>
-              
+
                  <div className="container">
                     <div className="row">
                        <div className="col from">
@@ -100,9 +104,9 @@ class CurrencyConventer extends React.Component {
                        </div>
                     </div>
                  </div>
-              
+
            </form>
-           { this.state.showResults && amount !== ' ' ?  
+           { this.state.showResults && amount !== ' ' ?
            <div className="result">
            <p>{amount} {from} is { (amount * exchangeRate).toFixed([3])} {to}</p>
            </div>
@@ -113,6 +117,3 @@ class CurrencyConventer extends React.Component {
       }
 
         export default CurrencyConventer
-
-
-
