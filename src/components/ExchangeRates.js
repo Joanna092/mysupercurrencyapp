@@ -1,93 +1,64 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ScrollableAnchor from "react-scrollable-anchor";
 
-class ExchangeRates extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      amount: 1,
-      baseCurrency: "GBP",
-      rates: [],
-      currencies: [],
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+const ExchangeRates = () => {
+  const [baseCurrency, setBaseCurrency] = useState("GBP");
+  const [rates, setRates] = useState({});
+  const [currencies, setCurrencies] = useState([]);
 
-  handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
-
+  // Fetch the list of currencies and rates when the component mounts
+  useEffect(() => {
     const host = "api.frankfurter.app";
 
-    fetch(`https://${host}/latest?from=${event.target.value}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data["rates"]);
-        this.setState({
-          currencies: Object.keys(data["rates"]).sort(),
-          rates: data["rates"],
-        });
-      });
-  }
-
-  //Get list of currencies for base currency
-
-  componentDidMount() {
-    const host = "api.frankfurter.app";
     fetch(`https://${host}/latest`)
       .then((response) => response.json())
       .then((data) => {
-        this.setState({
-          currencies: Object.keys(data["rates"]).sort(),
-          rates: data["rates"],
-        });
-      });
-  }
+        setCurrencies(Object.keys(data["rates"]).sort());
+        setRates(data["rates"]);
+      })
+      .catch((error) => console.error("Error fetching rates:", error));
+  }, []); // Empty dependency array ensures this runs only once
 
-  render() {
-    const { baseCurrency, currencies, rates } = this.state;
+  // Handle base currency change
+  const handleChange = (event) => {
+    const selectedCurrency = event.target.value;
+    setBaseCurrency(selectedCurrency);
+  };
 
-    //display currencies in a dropdown
-    const currencyChoice = currencies.map((currency) => (
-      <option key={currency} value={currency}>
-        {" "}
-        {currency}{" "}
-      </option>
-    ));
+  // Render the list of currency options
+  const currencyChoice = currencies.map((currency) => (
+    <option key={currency} value={currency}>
+      {currency}
+    </option>
+  ));
 
-    //display rates and currencies
-    const currencyList = Object.entries(rates).map(([key, value]) => {
-      return (
-        <div>
-          {key} : {value.toFixed([4])}
-        </div>
-      );
-    });
+  // Render the list of rates based on the selected base currency
+  const currencyList = Object.entries(rates).map(([currency, rate]) => (
+    <div key={currency}>
+      {currency}: {(rate / rates[baseCurrency]).toFixed(4)} {/* Converting to selected baseCurrency */}
+    </div>
+  ));
 
-    return (
-      <div className="exchange-box border">
-        <ScrollableAnchor id={"exchangeRates"}>
-          <h3 className="heading">Exchange Rates</h3>
-        </ScrollableAnchor>
-        <div className="choose-currency-box">
-          <span className="chooseBaseCurrency">Choose base currency:</span>
-          <select
-            value={baseCurrency}
-            onChange={this.handleChange}
-            name="baseCurrency"
-          >
-            {currencyChoice}
-            <option>{baseCurrency}</option>
-          </select>
-        </div>
-        <div className="currencyList">
-          <p>{currencyList}</p>
-        </div>
+  return (
+    <div className="exchange-box border">
+      <ScrollableAnchor id={"exchangeRates"}>
+        <h3 className="heading">Exchange Rates</h3>
+      </ScrollableAnchor>
+      <div className="choose-currency-box">
+        <span className="chooseBaseCurrency">Choose base currency:</span>
+        <select
+          value={baseCurrency}
+          onChange={handleChange}
+          name="baseCurrency"
+        >
+          {currencyChoice}
+        </select>
       </div>
-    );
-  }
-}
+      <div className="currencyList">
+        {currencyList.length > 0 ? currencyList : <p>Loading rates...</p>}
+      </div>
+    </div>
+  );
+};
 
 export default ExchangeRates;
